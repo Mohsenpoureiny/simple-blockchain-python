@@ -1,0 +1,41 @@
+@node1 = http://localhost:6000
+
+### new transaction
+POST {{node1}}/trxs/new 
+content-type: application/json
+
+{
+    "transactions": [
+        {
+            "input": "mohsen",
+            "recipient": "faeze",
+            "amount": 3
+        },
+        {
+            "input": "mohsen",
+            "recipient": "mohsen",
+            "amount": 2
+        }
+    ]
+}
+
+### get chain
+GET {{node1}}/chain
+
+### get mempool
+GET {{node1}}/mempool
+
+
+### mine
+POST {{node1}}/mine
+content-type: application/json
+
+{
+    "timestamp": 1719831694.7225137,
+    "trxs": [{"body": {"timestamp": 1719831685.854269, "transactions": [{"amount": 5, "input": "hbygskudigrfbeilrgfiuaegbrl", "recipient": "ueribglkerdsfrviulesbgfrau"}, {"amount": 45, "input": "hbygskudigrfbeilrgfiuaegbrl", "recipient": "hbygskudigrfbeilrgfiuaegbrl"}]}, "headers": {"hash": "d99b487f33dec08d71d99ad29f177e1913bb30e31e3151d59463649a19dde28f588bd1f7080f281d1db7e79bfc8d3b243df22d56f1eefafb149f98b037638ce8"}}, {"body": {"timestamp": 1719831686.0472195, "transactions": [{"amount": 5, "input": "hbygskudigrfbeilrgfiuaegbrl", "recipient": "ueribglkerdsfrviulesbgfrau"}, {"amount": 45, "input": "hbygskudigrfbeilrgfiuaegbrl", "recipient": "hbygskudigrfbeilrgfiuaegbrl"}]}, "headers": {"hash": "f15c75187f1924e4a4fbd4de0e7304e4b641e6f7e2740b7fa1e7215a07a63c5538195e8d0517ad03df12b35c0d9ea9e6a9ee3a8a9db194ff59dca699d609ba96"}}, {"body": {"timestamp": 1719831686.158802, "transactions": [{"amount": 5, "input": "hbygskudigrfbeilrgfiuaegbrl", "recipient": "ueribglkerdsfrviulesbgfrau"}, {"amount": 45, "input": "hbygskudigrfbeilrgfiuaegbrl", "recipient": "hbygskudigrfbeilrgfiuaegbrl"}]}, "headers": {"hash": "4d462bec4cd8f48899c129a3822d6c37021c030744ab76057b9fc6a718f77e076bbfa75a6260b98c8e4cafc17a10143c2c959a84d8528433577eedd4df9a429c"}}],
+    "nounce": 703966
+}
+
+
+### get
+GET https://blockchain.info/block-height/277317?format=json
