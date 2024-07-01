@@ -1,4 +1,4 @@
-# @node1 = http://localhost:6000
+@local = http://localhost:6000
 @node1 = https://node1.darkube.app/
 
 ### new transaction
@@ -40,3 +40,15 @@ content-type: application/json
 
 ### get
 GET https://blockchain.info/block-height/277317?format=json
+
+
+
+### new transaction
+POST {{local}}/nodes/register
+content-type: application/json
+
+{
+    "nodes": [
+       "http://node1.darkube.app"
+    ]
+}

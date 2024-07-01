@@ -67,7 +67,7 @@ def new_trx():
 
 @app.route('/chain')
 def full_chain():
-    print(blockchain.__chain__())
+    blockchain.resolve_conflicts()
     res = {
         'chain': blockchain.__chain__(),
         'length': len(blockchain.chain)
@@ -83,7 +83,7 @@ def register_node():
 
     for node in nodes:
         blockchain.register_node(node)
-
+    blockchain.resolve_conflicts()
     res = {
         "message": "nodes added",
         "total_nodes": list(blockchain.nodes)
@@ -97,7 +97,7 @@ def consensus():
     if replaced:
         res = {
             "message": 'replaced',
-            'new_chain': blockchain.chain
+            'chain': blockchain.chain
         }
     else:
         res = {

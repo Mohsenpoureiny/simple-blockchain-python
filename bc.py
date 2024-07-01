@@ -3,7 +3,7 @@ import json
 import hashlib 
 import requests
 from urllib.parse import urlparse
-
+import os
 
 class Block:
     def __init__(self, index, timestamp, trxs, nounce , previous_hash):
@@ -98,7 +98,12 @@ class Blockchain:
     def register_node(self,address):
         parsed_url = urlparse(address)
         self.nodes.add(parsed_url.netloc)
-    
+        try:
+            requests.post(f"http://{parsed_url.netloc}/nodes/register",json={
+                "nodes":[os.environ.get("THIS_NODE",'')]
+            })
+        except:
+            pass
     def valid_chain(self,chain):
         """ check if the chain is valid """
         last_block=chain[0]
