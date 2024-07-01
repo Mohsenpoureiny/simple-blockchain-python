@@ -1,20 +1,20 @@
 # @node1 = http://localhost:6000
-@node1 = http://957aa04e-ff32-4eb5-9725-b4693e6fddf7.hsvc.ir:31261
+@node1 = https://node1.darkube.app/
 
 ### new transaction
-POST {{node1}}/trxs/new 
+POST {{node1}}/transaction
 content-type: application/json
 
 {
     "transactions": [
         {
             "input": "mohsen",
-            "recipient": "mofsen",
+            "out": "mofsen",
             "amount": 3
         },
         {
             "input": "mohsen",
-            "recipient": "mohsen",
+            "out": "mohsen",
             "amount": 2
         }
     ]

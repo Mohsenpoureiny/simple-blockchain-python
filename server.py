@@ -4,6 +4,7 @@ from uuid import uuid4
 import sys
 from bc import Blockchain, Block
 import json
+from time import time
 
 app = Flask(__name__)
 
@@ -48,15 +49,18 @@ def mempool():
     return jsonify(res),200
 
 
-@app.route('/trxs/new', methods=['POST'])
+@app.route('/transaction', methods=['POST'])
 def new_trx():
     ''' will add a new trx '''
     values = request.get_json()
-    this_block = blockchain.new_trx(
+    _trx = blockchain.new_trx(
+        values['timestamp'] if "timestamp" in values else time(),
         values['transactions'],
     )
+    blockchain.inform_trx_nodes(_trx["body"])
     res = {
-        'message': f"will be added to block {this_block}"
+        'message': "recived",
+        "mempool": blockchain.mempool
     }
     return jsonify(res)
 
@@ -102,6 +106,7 @@ def consensus():
         }
     
     return jsonify(res)
+
 
 
 if __name__ == '__main__':

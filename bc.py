@@ -62,8 +62,11 @@ class Blockchain:
     def new_block(self, block ):
         ''' create a new block '''
         if(block.is_valid()):
-
-            self.mempool = []
+            
+            for tri in block.trxs:
+                for trmem,i in self.mempool:
+                    if tri["headers"]["hash"] == trmem["headers"]["hash"]:
+                        del self.mempool[i]
             
             self.chain.append(block)
 
@@ -71,22 +74,24 @@ class Blockchain:
     
 
 
-    def new_trx(self,transactions=[],):
+    def new_trx(self,ts,transactions=[],):
         ''' add a new trx to the mempool '''
         trx = {
             "headers": {
                 "hash": "0"
             },
             "body":{
-                "timestamp": time(),
+                "timestamp": ts,
                 "transactions":transactions,
             }
         }
         trx["headers"]["hash"] = hashlib.sha512(json.dumps(trx["body"], sort_keys=True).encode()).hexdigest()
-
+        for _trx in self.mempool:
+            if _trx["headers"]["hash"] == trx["headers"]["hash"]:
+                return trx
         self.mempool.append(trx)
 
-        return self.last_block.index + 1
+        return trx
 
 
 
@@ -134,6 +139,20 @@ class Blockchain:
             return True
         
         return False
+    
+    def inform_trx_nodes(self,trx):
+        """ inform nodes to new transaction """
+
+        neighbours = self.nodes
+
+        for node in neighbours:
+            try:
+                requests.post(f"http://{node}/transaction",json={
+                    "timestamp":trx["timestamp"],
+                    "transactions":trx["transactions"],
+                })
+            except:
+                pass
 
     @property
     def last_block(self):
