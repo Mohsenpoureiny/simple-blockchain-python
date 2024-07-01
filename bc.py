@@ -23,8 +23,8 @@ class Block:
     
     def is_valid(self):
         '''checks if this proof is fine or not '''
-        DL = 5
-        return self.__hash__().endswith(DL * '0')
+        DL = 3
+        return self.__hash__().startswith(DL * '0')
     
     def __str__(self):
         return json.dumps(self.__dict__(),sort_keys=True)

@@ -9,7 +9,7 @@ content-type: application/json
     "transactions": [
         {
             "input": "mohsen",
-            "recipient": "faeze",
+            "recipient": "mofsen",
             "amount": 3
         },
         {
