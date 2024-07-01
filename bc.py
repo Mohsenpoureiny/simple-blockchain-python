@@ -64,7 +64,7 @@ class Blockchain:
         if(block.is_valid()):
             
             for tri in block.trxs:
-                for trmem,i in self.mempool:
+                for i,trmem in enumerate(self.mempool):
                     if tri["headers"]["hash"] == trmem["headers"]["hash"]:
                         del self.mempool[i]
             
